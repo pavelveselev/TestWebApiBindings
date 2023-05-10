@@ -2,5 +2,4 @@
 
 public abstract class Device
 {
-    public string Kind { get; set; }
 }

@@ -7,8 +7,8 @@ namespace TestApiBindings.Controllers;
 [ApiController]
 public class DeviceController : ControllerBase
 {
-    [HttpPost]
-    public IActionResult Post(Device device)
+    [HttpPost("{kind}")]
+    public IActionResult Post(string kind, [FromBody] Device device)
     {
         return Ok();
     }
