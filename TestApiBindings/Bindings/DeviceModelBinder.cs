@@ -11,26 +11,14 @@ public class DeviceModelBinder : IModelBinder
     {
         var modelTypeValue = bindingContext.ValueProvider.GetValue("kind").FirstValue;
 
-        Device model1;
+        Device model;
         if (modelTypeValue == "Laptop")
         {
-            string json;
-            using (var reader = new StreamReader(bindingContext.ActionContext.HttpContext.Request.Body, Encoding.UTF8))
-                json = await reader.ReadToEndAsync();
-
-            var model2 = JsonConvert.DeserializeObject<Laptop>(json);
-
-            model1 = model2;
+            model = await GetObjectFromRequestBody<Laptop>(bindingContext.ActionContext.HttpContext);
         }
         else if (modelTypeValue == "SmartPhone")
         {
-            string json;
-            using (var reader = new StreamReader(bindingContext.ActionContext.HttpContext.Request.Body, Encoding.UTF8))
-                json = await reader.ReadToEndAsync();
-
-            var model2 = JsonConvert.DeserializeObject<SmartPhone>(json);
-
-            model1 = model2;
+            model = await GetObjectFromRequestBody<SmartPhone>(bindingContext.ActionContext.HttpContext);
         }
         else
         {
@@ -38,6 +26,15 @@ public class DeviceModelBinder : IModelBinder
             return;
         }
 
-        bindingContext.Result = ModelBindingResult.Success(model1);
+        bindingContext.Result = ModelBindingResult.Success(model);
+    }
+
+    private static async Task<T> GetObjectFromRequestBody<T>(HttpContext httpContext)
+    {
+        string json;
+        using (var reader = new StreamReader(httpContext.Request.Body, Encoding.UTF8))
+            json = await reader.ReadToEndAsync();
+
+        return JsonConvert.DeserializeObject<T>(json);
     }
 }
