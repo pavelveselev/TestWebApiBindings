@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TestApiBindings.Models;
 
 namespace TestApiBindings.Controllers
@@ -10,7 +11,7 @@ namespace TestApiBindings.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] User user)
         {
-            return Ok();
+            return Ok($"Received User object {JsonConvert.SerializeObject(user)}");
         }
     }
 }

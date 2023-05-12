@@ -12,6 +12,8 @@ public class DeviceModelBinderProvider : IModelBinderProvider
             return null;
         }
 
-        return new DeviceModelBinder();
+        var modelSubclasses = new[] { typeof(Laptop), typeof(SmartPhone), };
+
+        return new DeviceModelBinder(modelSubclasses);
     }
 }
