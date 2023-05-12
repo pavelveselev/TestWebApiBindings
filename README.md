@@ -1,1 +1,1 @@
-# TestApiBindings
+Sample project for the implementation of polymorphic model binding on asp.net core. Polymorphic model (could be any subclass of [Device](https://github.com/pavelveselev/TestWebApiBindings/blob/master/TestApiBindings/Models/Device.cs) class) has [FromBody](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-7.0#frombody-attribute) attribute.
